@@ -1,4 +1,4 @@
-package day8
+package day08
 
 // TODO: use this class instead of the typealias and extension functions
 class RotatableMatrix<T>(private val matrix: Matrix<T>) : Iterable<T>, Collection<T>{
