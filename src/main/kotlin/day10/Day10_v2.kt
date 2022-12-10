@@ -17,10 +17,10 @@ fun executeProgram_v2(filename: String, probeStartCycle: Int = 20, probePeriod: 
 
     var exitSignalStrength = 0
     var x = 1
-    xIncrements.withIndex().forEach { (cycle, xIncrement) ->
+    xIncrements.withIndex().forEach { (cycle, xIncrement) ->  // note that cycle is 0-based here, so we compensate below
         if ((cycle + 1) % probePeriod == probeStartCycle) exitSignalStrength += (cycle + 1) * x
 
-        print(if ((cycle % probePeriod) in (x - 1)..(x + 1)) "#" else ".")
+        print(if ((cycle % probePeriod) in (x - 1)..(x + 1)) "#" else ".")  // off-by-one's cancel out
         if ((cycle + 1) % probePeriod == 0) println()
 
         x += xIncrement
