@@ -1,5 +1,6 @@
 package day9
 
+import ResourceReader
 import java.io.FileNotFoundException
 import kotlin.math.abs
 
@@ -14,8 +15,7 @@ fun main() {
 }
 
 object MoveInputReader {
-    fun read(filename: String) = (javaClass.getResourceAsStream(filename) ?: throw FileNotFoundException(filename))
-        .bufferedReader().lines().toList()
+    fun read(filename: String) = ResourceReader.readLines("day9/$filename").toList()
         .flatMap { cmd -> List(cmd.substring(2).toInt()) { MoveDirection.valueOf("${cmd[0]}") } }
 }
 
