@@ -60,7 +60,7 @@ data class Node(val x: Int, val y: Int, var value: Int, var dist: Int, var visit
         return (x == other.x && y == other.y)
     }
 
-    override fun hashCode() = 31 * x + y
+    override fun hashCode() = 31 * x + y  // Since we use a LinkedHashSet the hash should not change if we mutate the Node
 }
 
 tailrec fun dijkstra(current: Node, unvisited: MutableSet<Node>, metric: Node.(Node) -> Int) {
