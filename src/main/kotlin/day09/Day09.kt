@@ -20,7 +20,7 @@ object MoveInputReader {
 
 enum class MoveDirection { U, D, L, R }
 
-typealias Coord = Pair<Int, Int>
+internal typealias Coord = Pair<Int, Int>
 
 val Coord.x get() = first
 val Coord.y get() = second

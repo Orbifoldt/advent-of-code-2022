@@ -23,7 +23,7 @@ fun String.outcomeScorePart2() = if(this[2]=='X') 0 else if(this[2]=='Y') 3 else
 fun String.moveScorePart2() = if(matches(Regex("A Y|B X|C Z"))) 1 else if (matches(Regex("A Z|B Y|C X"))) 2 else  3
 fun alt(filename: String) = ResourceReader.readLines("day02/$filename").map { it.trim() }
     .map { (it.moveScore() + it.outcomeScore()) to (it.outcomeScorePart2() + it.moveScorePart2()) }
-    .reduce { (p1ScoreA, p2ScoreA), (p1ScoreB, p2ScoreB) -> (p1ScoreA + p1ScoreB) to (p2ScoreA + p2ScoreB)}.get()
+    .reduce { (p1A, p2A), (p1B, p2B) -> (p1A + p1B) to (p2A + p2B)}.get()
     .also { (part1, part2) -> println("$filename: Score for part 1 is '$part1' and part 2 is '$part2'.") }
 
 fun part1(filename: String): Int =
