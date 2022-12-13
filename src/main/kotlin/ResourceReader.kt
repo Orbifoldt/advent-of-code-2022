@@ -24,4 +24,7 @@ object ResourceReader {
 
     fun readColumns(filename: String, delimiter: String = " ", trim: Boolean = true): Stream<List<String>> =
         readLines(filename).map { line -> line.split(delimiter).map { if (trim) it.trim() else it } }
+
+    fun readGrouped(filename: String, groupDelimiter: Regex = Regex("\\n\\s?\\n")) = readString(filename)
+        .split(groupDelimiter).map { it.trim() }
 }
