@@ -18,7 +18,7 @@ fun part1(filename: String): Int =
 
 
 fun String.halves() = take(length / 2).toCharArray() to drop(length / 2).toCharArray()
-fun Pair<CharArray, CharArray>.getDuplicate() = first.intersect(second.asList()).first()
+fun Pair<CharArray, CharArray>.getDuplicate() = first.intersect(second.asList().toSet()).first()
 val Char.itemPriority get() = if (this in 'a'..'z') code - 'a'.code + 1 else code - 'A'.code + 27
 
 fun part2(filename: String) =

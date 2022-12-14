@@ -22,8 +22,8 @@ enum class MoveDirection { U, D, L, R }
 
 internal typealias Coord = Pair<Int, Int>
 
-val Coord.x get() = first
-val Coord.y get() = second
+internal val Coord.x get() = first
+internal val Coord.y get() = second
 operator fun Coord.minus(other: Coord) = (this.x - other.x) to (this.y - other.y)
 
 val ORIGIN = 0 to 0
