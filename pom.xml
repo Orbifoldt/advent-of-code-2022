@@ -17,6 +17,7 @@
     <kotlin-maven-plugin.version>1.7.21</kotlin-maven-plugin.version>
     <source.language-level>17</source.language-level>
     <target.language-level>17</target.language-level>
+    <kotlin.languageVersion>1.8</kotlin.languageVersion>
   </properties>
 
   <repositories>
@@ -50,6 +51,9 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <languageVersion>${kotlin.languageVersion}</languageVersion>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
