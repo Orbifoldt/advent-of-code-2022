@@ -1,3 +1,13 @@
+Here I also tried implementing a recursive Depth-First-Search (DFS) approach, but there I quickly ran into memory issues. It should be possible to make the space required much less, for example by storing everything (the nodes, edges and time passed) as bytes instead of Strings or Objects. Or, the cache could be given some eviction policy, but that's kinda difficult.  
+
+Output: 
+```
+In example-pipes.txt the maximal flow we can achieve is '1651'.
+In my-pipes.txt the maximal flow we can achieve is '1659'.
+In example-pipes.txt the maximal flow me and the elephant can achieve is '1677'.
+In my-pipes.txt the maximal flow me and the elephant can achieve is '2382'.
+```
+
 # Part One
 ```
 --- Day 16: Proboscidea Volcanium ---
