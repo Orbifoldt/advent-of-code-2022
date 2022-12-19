@@ -15,8 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kotlin.code.style>official</kotlin.code.style>
     <kotlin-maven-plugin.version>1.7.21</kotlin-maven-plugin.version>
-    <source.language-level>17</source.language-level>
-    <target.language-level>17</target.language-level>
+    <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
     <kotlin.languageVersion>1.8</kotlin.languageVersion>
   </properties>
 
@@ -52,6 +51,7 @@
           </execution>
         </executions>
         <configuration>
+          <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
           <languageVersion>${kotlin.languageVersion}</languageVersion>
         </configuration>
       </plugin>
@@ -67,8 +67,8 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>${source.language-level}</source>
-          <target>${target.language-level}</target>
+          <source>${kotlin.compiler.jvmTarget}</source>
+          <target>${kotlin.compiler.jvmTarget}</target>
         </configuration>
       </plugin>
       <plugin>
