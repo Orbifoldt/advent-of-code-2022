@@ -51,8 +51,8 @@ fun mixing(initial: List<NumberWrapper>, rounds: Int = 1): List<NumberWrapper> {
 }
 
 fun part2(filename: String) {
-    val encrypted = mixing(readCode(filename).applyDecriptionKey().toList(), rounds = 10)
+    val encrypted = mixing(readCode(filename).applyDecryptionKey().toList(), rounds = 10)
     println("Coordinate for $filename is '${encrypted.getCoordinate()}'")
 }
 
-private fun Stream<NumberWrapper>.applyDecriptionKey(key: Int = 811589153) = map { NumberWrapper(it.value * key )}
+private fun Stream<NumberWrapper>.applyDecryptionKey(key: Int = 811589153) = map { NumberWrapper(it.value * key )}
