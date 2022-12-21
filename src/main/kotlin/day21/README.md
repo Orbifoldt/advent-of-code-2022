@@ -1,6 +1,6 @@
 For part one I just constructed a tree from the expression, that made it pretty straight forward.
 
-For part two I immediately had to think about Newton's method. I struggled a bit with doubles, but they quickly yielded NaNs. Then I tried using BigDecimal. It took me a while to figure out how to correctly set the number of digits behind the decimal point. Once I did I found that it converges insanely fast, so probably a simple linear approximation could have worked too...
+For part two I immediately had to think about Newton's method. I struggled a bit with doubles, but they quickly yielded NaNs. Then I tried using BigDecimal. It took me a while to figure out how to correctly set the number of digits behind the decimal point. I got insanely fast convergence, and then I realized this just results in a linear expression... So this was a bit overkill, but it was fun to do in Kotlin!
 
 Output:
 ```
