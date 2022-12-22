@@ -13,12 +13,28 @@ fun main() {
 }
 
 enum class Direction(val x: Int, val y: Int) { RIGHT(+1, 0), DOWN(0, +1), LEFT(-1, 0), UP(0, -1); }
-
 fun Direction.rotate(amount: Int) = Direction.values()[Math.floorMod(this.ordinal + amount, 4)]
 
 operator fun List<CharArray>.get(y: Int, x: Int) = this[Math.floorMod(y, this.size)][Math.floorMod(x, this[0].size)]
 
 fun part1(filename: String) {
+    solve(filename, nextLocationAndDirection = { x: Int, y: Int, dir: Direction ->
+        var n = 1
+        while (this[y + dir.y * n, x + dir.x * n] == ' ') {
+            n++
+        }
+        Triple(x + dir.x * n, y + dir.y * n, dir)
+    })
+}
+
+fun part2(filename: String) {
+    solve(filename, nextLocationAndDirection = { x: Int, y: Int, d: Direction -> nextLocationAndDirection(x, y, d)})
+}
+
+fun solve(
+    filename: String,
+    nextLocationAndDirection: List<CharArray>.(Int, Int, Direction) -> Triple<Int, Int, Direction>,
+) {
     val (mapStr, instructions) = ResourceReader.readString("day22/$filename").split(Regex("\\n\\s?\\n"))
     val (height, width) = mapStr.lines().size - 1 to mapStr.lines().maxOf { it.length }
     val map = mapStr.lines().map { it.toCharArray() }.dropLast(1).map { it + CharArray(width - it.size) { ' ' } }
@@ -26,25 +42,18 @@ fun part1(filename: String) {
     var (x, y) = map[0].withIndex().find { it.value == '.' }!!.index to 0
     var direction = RIGHT
 
-    fun update(newX: Int, newY: Int) {
+    fun update(newX: Int, newY: Int, newDirection: Direction) {
         x = Math.floorMod(newX, width)
         y = Math.floorMod(newY, height)
-    }
-
-    fun nextLocation(x: Int, y: Int, dir: Direction): Pair<Int, Int> {
-        var n = 1
-        while (map[y + dir.y * n, x + dir.x * n] == ' ') {
-            n++
-        }
-        return x + dir.x * n to y + dir.y * n
+        direction = newDirection
     }
 
     fun move(amount: Int) {
         var stepsMade = 0
         while (stepsMade < amount) {
-            val (nextX, nextY) = nextLocation(x, y, direction)
+            val (nextX, nextY, nextDir) = map.nextLocationAndDirection(x, y, direction)
             when (map[nextY, nextX]) {
-                '.'  -> update(nextX, nextY)
+                '.'  -> update(nextX, nextY, nextDir)
                 '#'  -> return
                 else -> throw IllegalStateException()
             }
@@ -61,45 +70,6 @@ fun part1(filename: String) {
 //            println("Got input '$it', moved to (x,y)=($x,$y) and direction $direction")
     }
     println("Password for $filename is '${1000 * (y + 1) + 4 * (x + 1) + direction.ordinal}'")
-}
-
-
-fun part2(filename: String) {
-    val (mapStr, instructions) = ResourceReader.readString("day22/$filename").split(Regex("\\n\\s?\\n"))
-    val (height, width) = 200 to 150
-    val map = mapStr.lines().map { it.toCharArray() }.dropLast(1).map { it + CharArray(width - it.size) { ' ' } }
-
-    var (x, y) = map[0].withIndex().find { it.value == '.' }!!.index to 0
-    var direction = RIGHT
-
-    fun update(newX: Int, newY: Int, newDirection: Direction) {
-        x = Math.floorMod(newX, width)
-        y = Math.floorMod(newY, height)
-        direction = newDirection
-    }
-
-    fun move(amount: Int) {
-        var stepsMade = 0
-        while (stepsMade < amount) {
-            val (nextX, nextY, nextDirection) = nextLocationAndDirection(x, y, direction)
-            when (map[nextY, nextX]) {
-                '.'  -> update(nextX, nextY, nextDirection)
-                '#'  -> return
-                else -> throw IllegalStateException()
-            }
-            stepsMade++
-        }
-    }
-
-    Regex("\\d+|[RL]").findAll(instructions).map { it.value }.forEach {
-        when (it) {
-            "R"  -> direction = direction.rotate(+1)
-            "L"  -> direction = direction.rotate(-1)
-            else -> move(it.toInt())
-        }
-//        println("Got input '$it', moved to (x,y)=($x,$y) and direction $direction")
-    }
-    println("Password for $filename with cubic folding is '${1000 * (y + 1) + 4 * (x + 1) + direction.ordinal}'")
 }
 
 /*
