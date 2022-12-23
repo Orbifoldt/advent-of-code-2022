@@ -4,13 +4,10 @@ import ResourceReader
 import java.awt.Point
 
 fun main() {
-//    part1("test2-elves.txt")
     part1("example-elves.txt")
     part1("my-elves.txt")
     part2("example-elves.txt")
     part2("my-elves.txt")
-//    part2("example-.txt")
-//    part2("my-.txt")
 }
 
 
@@ -23,7 +20,8 @@ fun Point.possibleNeighbors() = hashSetOf(
     Point(x - 1, y), /*                      */ Point(x + 1, y),
     Point(x - 1, y + 1), Point(x, y + 1), Point(x + 1, y + 1),
 )
-fun Point.getNeighbors(others: HashSet<Point>) = this.possibleNeighbors().mapNotNull { n -> others.find { it.x == n.x && it.y == n.y } }//others.filter { Point(it.x, it.y) in this.possibleNeighbors() }
+fun Point.getNeighbors(others: HashSet<Point>) = this.possibleNeighbors()
+    .mapNotNull { n -> others.find { it.x == n.x && it.y == n.y } }
 fun Point.count(direction: Direction, neighbors: List<Point>) = when (direction) {
     Direction.N, Direction.S -> neighbors.count { it.y == y + direction.point.y }
     Direction.E, Direction.W -> neighbors.count { it.x == x + direction.point.x }
